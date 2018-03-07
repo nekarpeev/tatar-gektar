@@ -38,6 +38,12 @@ abstract class Calculation {
             $this->costs['3st_year'] /= 2;
             $this->costs['4st_year'] /= 2;
         }
+        elseif ($area == 25) {
+            $this->costs['1st_year'] /= 4;
+            $this->costs['2st_year'] /= 4;
+            $this->costs['3st_year'] /= 4;
+            $this->costs['4st_year'] /= 4;
+        }
     }
 
     public function checkSubsidies($subsidies) {

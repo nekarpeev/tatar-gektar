@@ -1,9 +1,9 @@
 document.addEventListener('DOMContentLoaded', function () {
 
     var costs = 2940000,
-        costs_05 = 1600000,
         incomes = 5600000,
         profit = incomes - costs,
+        year = 4,
 
         berry_quantity_min = 5000,
         berry_quantity_max = 10000,
@@ -145,6 +145,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.log(response);
                 updateChart(response);
                 updateChart_1(response);
+                renderMainIndicators(response);
             },
             error: function (error) {
                 console.log('calc error');
@@ -157,7 +158,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         console.log(response['calculationTotal']);
 
-        chart.options.data[0].dataPoints[0].y = response['calculationTotal']['costs'];
+        chart.options.data[0].dataPoints[0].y = response['calculationTotal']['costsSum'];
         chart.options.data[0].dataPoints[1].y = response['calculationTotal']['incomes'];
         chart.options.data[0].dataPoints[2].y = response['calculationTotal']['profit'];
 
@@ -190,7 +191,7 @@ document.addEventListener('DOMContentLoaded', function () {
     $('.area_ga').on('change', function () {
 
         var $val = $(this).val();
-        if ($val == costs_05) {
+        if ($val == 0) {
             sliderUpdate0();
         }
         else {
@@ -202,7 +203,14 @@ document.addEventListener('DOMContentLoaded', function () {
     $('.subsidies').on('change', function () {
         mainRequest();
     });
+
+
+    /**
+     * Canvas block
+     */
+
     CanvasJS.addColorSet("greenShades", ['#C0504E', '#F6A84B', "#51CDA0"]);
+    CanvasJS.addColorSet("greenShades_1", ['#C0504E', '#F6A84B', "#51CDA0", ' ', '#C0504E', '#F6A84B', "#51CDA0", ' ', '#C0504E', '#F6A84B', "#51CDA0", ' ', '#C0504E', '#F6A84B', "#51CDA0"]);
 
     var chart = new CanvasJS.Chart("chartContainer", {
         theme: "light2", // "light2", "dark1", "dark2"
@@ -228,7 +236,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var chart_1 = new CanvasJS.Chart("chart_1_Container", {
         theme: "light2", // "light2", "dark1", "dark2"
         animationEnabled: false, // change to true
-
+        colorSet: "greenShades_1",
         title: {
             text: "Разделение по годам"
         },
@@ -264,6 +272,30 @@ document.addEventListener('DOMContentLoaded', function () {
     });
     chart_1.render();
 
+
+    /**
+     * render main indicators
+     */
+    function renderMainIndicators(response) {
+        var profitability = response['calculationTotal']['profit']/response['calculationTotal']['incomes'] * 100,
+            mid_profit = response['calculationTotal']['profit']/year,
+
+            paybackPeriod = response['calculationTotal']['costsSum']/mid_profit;
+
+        $('#resume_title_costs').html(response['calculationTotal']['costsSum']);
+        $('#resume_title_incomes').html(response['calculationTotal']['incomes']);
+        $('#resume_title_profit').html(response['calculationTotal']['profit']);
+        $('#resume_title_profitability').html(profitability.toFixed());
+        $('#resume_title_payback_period').html(paybackPeriod.toFixed(1));
+
+
+    }
+
+
+    /**
+     *
+     * salary block
+     */
 
     var net_profit_one_berry = 120;
 

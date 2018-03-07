@@ -6,22 +6,50 @@
  * Time: 14:47
  */
 
-class Calculation {
+abstract class Calculation {
 
-    public $costs;
+    private $costs;
+    private $costsSum;
+
     public $incomes;
     public $profit;
 
     const SUBSIDIES = 245000;
-    Const YEARS = 4;
 
-    public static function checkSubsidies($subsidies, $costs) {
+    public function setterCosts() {
+        $this->costs['1st_year'] = 1800000;
+        $this->costs['2st_year'] = 380000;
+        $this->costs['3st_year'] = 380000;
+        $this->costs['4st_year'] = 380000;
+    }
+
+    public function getterCostsSum() {
+        return $this->costsSum;
+    }
+
+    public function getterCosts() {
+        return $this->costs;
+    }
+
+    public function checkArea($area) {
+        if($area == 0) {
+            $this->costs['1st_year'] /= 2;
+            $this->costs['2st_year'] /= 2;
+            $this->costs['3st_year'] /= 2;
+            $this->costs['4st_year'] /= 2;
+        }
+    }
+
+    public function checkSubsidies($subsidies) {
 
         if($subsidies == 1) {
-            $costs -= self::SUBSIDIES;
+            $this->costs['1st_year'] -= self::SUBSIDIES;
         }
-
-        return $costs;
-
+        $this->costsSum = array_sum($this->costs);
     }
+
+    public abstract function getResult();
+
+
+
 }

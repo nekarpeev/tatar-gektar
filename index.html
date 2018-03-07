@@ -11,17 +11,19 @@
     <link rel="stylesheet" href="dist/js/libs/ion.rangeSlider-2.2.0/css/ion.rangeSlider.skinFlat.css"/>
 </head>
 <body>
+<style>
+    .chart_label__icon {
+        margin-right: .5rem;
+        display: inline-block;
+        width: 1rem;
+        height: 1rem;
+    }
+</style>
 <div class="container">
-    <!--    <div class="row">-->
-    <!--        <div class="col-md-8">-->
-    <!--            <input type="text" id="example_id" name="example_name" value="" />-->
-    <!--        </div>-->
-    <!--    </div>-->
     <div class="col-12 main_calculator_right_block">
         <div class="row">
             <div class="col-12 text-center mb-4">
-                <h2 class="h2">РАССЧИТАЙТЕ ЭКОНОМИЧЕСКУЮ ЭФФЕКТИЧНОСТЬ</h2>
-                <p>Узнайте, какой годовой доход могут приносить Ваши активы</p>
+                <h2 class="h2">Татарстанский гектар</h2>
             </div>
             <div class="col-lg-4 offset-lg-1">
 
@@ -30,7 +32,8 @@
 
                     <div class="form-group">
                         <label>
-                            <input class="subsidies" type="radio" checked name="subsidies" value="0"/> Без учета субсидирования
+                            <input class="subsidies" type="radio" checked name="subsidies" value="0"/> Без учета
+                            субсидирования
                         </label>
                         <br>
                         <label>
@@ -39,42 +42,84 @@
                     </div>
                     <div class="form-group">
                         <label>
-                            <input class="area_ga" type="radio" checked name="area_ga" value="2940000"/> 1 Га
+                            <input class="area_ga" type="radio" checked name="area_ga" value="1"/> 1 Га
                         </label>
                         <label>
-                            <input class="area_ga" type="radio" name="area_ga" value="1600000"/> 0.5 Га
+                            <input class="area_ga" type="radio" name="area_ga" value="0"/> 0.5 Га
                         </label>
                     </div>
 
                     <div class="form-group">
+                        <div>Цена за 1кг. клубники</div>
                         <input type="text" id="berry_price" name="berry_price"/>
                     </div>
 
                     <div class="form-group">
+                        <div>Урожай за 1-й год</div>
                         <input type="text" id="berry_quantity1" name="berry_quantity[1st_year]"/>
-                        <div>Собрано за 1-ый года</div>
+
                     </div>
                     <div class="form-group">
+                        <div>Урожай за 2-й год</div>
                         <input type="text" id="berry_quantity2" name="berry_quantity[2st_year]"/>
-                        <div>Собрано за 2-ой года</div>
                     </div>
                     <div class="form-group">
+                        <div>Урожай за 3-й год</div>
                         <input type="text" id="berry_quantity3" name="berry_quantity[3st_year]"/>
-                        <div>Собрано за 3-ий года</div>
                     </div>
                     <div class="form-group">
+                        <div>Урожай за 4-й год</div>
                         <input type="text" id="berry_quantity4" name="berry_quantity[4st_year]"/>
-                        <div>Собрано за 4-ый года</div>
                     </div>
                 </form>
             </div>
             <div class="col-lg-6 main_chart main_chart--affter">
                 <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+                <div class="row mt-3 ml-1">
+                    <div class="chart_label col-lg-4">
+                        <div class="chart_label__icon" style="background-color: #C0504E"></div>
+                        Раходы
+                    </div>
+
+                    <div class="chart_label col-lg-4">
+                        <div class="chart_label__icon" style="background-color: #F6A84B"></div>
+                        Доходы
+                    </div>
+                    <div class="chart_label col-lg-4">
+                        <div class="chart_label__icon" style="background-color: #51CDA0"></div>
+                        Чистая прибыль
+                    </div>
+                </div>
+                <div class="col-lg-12 mt-5">
+                    <div class="mb-1"><b>Итоговые показатели:</b></div>
+                    <div>Расходы за 4 года - <b id="resume_title_costs"></b> руб.</div>
+                    <div>Доходы за 4 года - <b id="resume_title_incomes"></b> руб.</div>
+                    <div>Чистая прибыль за 4 года - <b id="resume_title_profit"></b> руб.</div>
+                    <div class="mt-2"></div>
+                    <div>Рентабельность - <b id="resume_title_profitability"></b> <b>%</b></div>
+                    <div>Срок окупаемости (лет) - <b id="resume_title_payback_period"></b></d   iv>
+
+                </div>
             </div>
         </div>
         <div class="row mt-5">
             <div class="col-12 text-center mb-4">
                 <div id="chart_1_Container" style="height: 370px; width: 100%;"></div>
+                <div class="row mt-3 ml-1">
+                    <div class="chart_label col-lg-4">
+                        <div class="chart_label__icon" style="background-color: #C0504E"></div>
+                        Раходы
+                    </div>
+
+                    <div class="chart_label col-lg-4">
+                        <div class="chart_label__icon" style="background-color: #F6A84B"></div>
+                        Доходы
+                    </div>
+                    <div class="chart_label col-lg-4">
+                        <div class="chart_label__icon" style="background-color: #51CDA0"></div>
+                        Чистая прибыль
+                    </div>
+                </div>
             </div>
         </div>
         <!--

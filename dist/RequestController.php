@@ -12,16 +12,23 @@ class RequestController {
 
         if(isset($_POST['submit'])) {
             $post = $_POST;
+            $subsidies = $post['subsidies'];
+            $area = $post['area_ga'];
 
             $calculationTotal = new CalculationTotal();
+            $calculationTotal->setterCosts();
+            $calculationTotal->checkArea($area);
+            $calculationTotal->checkSubsidies($subsidies);
             $calculationTotal->setTotal($post);
 
             $calculationDetailed = new CalculationDetailed();
-            $calculationDetailed->setCoasts();
+            $calculationDetailed->setterCosts();
+            $calculationDetailed->checkArea($area);
+            $calculationDetailed->checkSubsidies($subsidies);
             $calculationDetailed->setIncomes($post);
 
-            $result['calculationTotal'] = $calculationTotal;
-            $result['calculationDetailed'] = $calculationDetailed;
+            $result['calculationTotal'] = $calculationTotal->getResult();
+            $result['calculationDetailed'] = $calculationDetailed->getResult();
 
             echo json_encode($result, JSON_UNESCAPED_UNICODE);
         }

@@ -16,19 +16,23 @@ class CalculationTotal extends Calculation {
 
         $berry_price = $post['berry_price'];
         $berry_quantity = $totalQuantity;
-        $area_ga = intval($post['area_ga']);
-        $subsidies = $post['subsidies'];
-
-        $this->costs = self::checkSubsidies($subsidies, $area_ga);
+        $costsSum = self::getterCostsSum();
 
         $this->incomes = intval($berry_price * $berry_quantity);
-        $this->profit = $this->incomes - $this->costs;
+        $this->profit = $this->incomes - $costsSum;
 
     }
 
     public function getSumQuantity($post) {
-
         return array_sum($post['berry_quantity']);
+    }
+
+    public function getResult() {
+        $result['costsSum'] = $this->getterCostsSum();
+        $result['incomes'] = $this->incomes;
+        $result['profit'] = $this->profit;
+
+        return $result;
     }
 }
 
